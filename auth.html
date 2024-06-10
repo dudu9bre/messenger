@@ -36,6 +36,75 @@
 
     <script src="js/jquery.js"></script>
     <script src="js/sweetalert2.js"></script>
-    <script src="js/auth.js"></script>
+    <script>
+        let fadeInBtn = document.querySelectorAll(".toggle")[0]
+        let fadeOutBtn = document.querySelectorAll(".toggle")[1]
+
+        fadeInBtn.addEventListener("click", () => {
+            $(".register").fadeIn(240)
+        })
+        fadeInBtn.addEventListener("touchend", () => {
+            $(".register").fadeIn(240)
+        })
+
+        fadeOutBtn.addEventListener("click", () => {
+            $(".register").fadeOut(240)
+        })
+        fadeOutBtn.addEventListener("touchend", () => {
+            $(".register").fadeOut(240)
+        })
+
+        $("#login").on("submit", function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: "post"
+                , url: "process/login.php"
+                , data: $("#login").serialize()
+                , beforeSend: function() {
+                    $("loading").show()
+                }
+                , complete: function() {
+                    $("loading").hide()
+                }
+                , success: function(data) {
+                    location.href = "./"
+                }
+                , error: function (error) {
+                    Swal.fire({
+                        title: "ops!"
+                        , text: error.statusText
+                        , icon: "error"
+                        , confirmButtonText: "Tentar novamente"
+                    })
+                }
+            })
+        })
+
+        $("#register").on("submit", function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: "post"
+                , url: "process/registration.php"
+                , data: $("#register").serialize()
+                , beforeSend: function() {
+                    $("loading").show()
+                }
+                , complete: function() {
+                    $("loading").hide()
+                }
+                , success: function(data) {
+                    location.href = "./"
+                }
+                , error: function (error) {
+                    Swal.fire({
+                        title: "ops!"
+                        , text: error.statusText
+                        , icon: "error"
+                        , confirmButtonText: "Tentar novamente"
+                    })
+                }
+            })
+        })
+    </script>
 </body>
 </html>
