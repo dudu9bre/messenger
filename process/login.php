@@ -5,7 +5,7 @@
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        if ($email == "" || $password = "") {
+        if ($email == "" || $password == "") {
             die(header("HTTP/1.0 401 Preencha todos os campos do formulário"));
         }
 
