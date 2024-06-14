@@ -14,7 +14,7 @@
     <div class="bg"></div>
     <div class="auth login">
         <p class="title">QuickTalk</p>
-        <form id="login" action="" method="post">
+        <form id="login" method="post">
             <input type="text" name="email" class="field" placeholder="Email ou nome de usuário" required>
             <input type="password" name="password" class="field" placeholder="Senha" required>
             <button>Entrar</button>
@@ -24,8 +24,8 @@
 
     <div class="auth register">
         <p class="title">Criar uma conta</p>
-        <form id="login" action="" method="post">
-            <input type="text"  name="email" class="field" placeholder="Nome de usuário" minlength="5" maxlength="15" required>
+        <form id="register" method="post">
+            <input type="text"  name="username" class="field" placeholder="Nome de usuário" minlength="5" maxlength="15" required>
             <input type="email" name="email" class="field" placeholder="Email" required>
             <input type="password" name="password" class="field" placeholder="Senha" minlength="8" required>
             <input type="password" name="cpassword" class="field" placeholder="Confirmar senha" minlength="8" required>
@@ -61,15 +61,16 @@
                 , url: "process/login.php"
                 , data: $("#login").serialize()
                 , beforeSend: function() {
-                    $("loading").show()
+                    $("#loading").show()
                 }
                 , complete: function() {
-                    $("loading").hide()
+                    $("#loading").hide()
                 }
                 , success: function(data) {
                     location.href = "./"
                 }
                 , error: function (error) {
+                    console.log(error)
                     Swal.fire({
                         title: "ops!"
                         , text: error.statusText
@@ -87,15 +88,16 @@
                 , url: "process/registration.php"
                 , data: $("#register").serialize()
                 , beforeSend: function() {
-                    $("loading").show()
+                    $("#loading").show()
                 }
                 , complete: function() {
-                    $("loading").hide()
+                    $("#loading").hide()
                 }
                 , success: function(data) {
                     location.href = "./"
                 }
                 , error: function (error) {
+                    console.log(error)
                     Swal.fire({
                         title: "ops!"
                         , text: error.statusText

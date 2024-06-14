@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickTalk</title>
+    <link rel="icon" href="img/favicon.png" type="image/png">
+    <link rel="stylesheet" href="style/global.css">
+    <link rel="stylesheet" href="style/homepage.css">
+    <link rel="stylesheet" href="style/inbox.css">
+    <link rel="stylesheet" href="style/chat.css">
+    <link rel="stylesheet" href="style/profile.css">
+    <link rel="stylesheet" href="style/sweetalert2.css">
+</head>
+<body>
+    <div id="loading">Loading&#8230;</div>
+
+    <div id="inbox" class="column">
+        <p class="title">Conversas</p>
+        <input type="text" maxlength="15" name="username" class="search_field" placeholder="Buscar">
+        <div id="search_container"></div>
+        <div class="container"></div>
+    </div>
+    <div id="chat" class="column"></div>
+    <div id="profile" class="column">
+        <p class="title">Perfil</p>
+        <div class="container"></div>
+        <div class="menu">
+            <button>Sair</button>
+        </div>
+    </div>
+    <script src="js/jquery.js"></script>
+    <script src="js/sweetalert2.js"></script>
+    <script>
+        function loadInbox() {
+
+        }
+        function loadProfile(id = 0) {
+            $.ajax({
+                url: "process/profile.php?id=" + id,
+                success: function(data) {
+                    $("#profile .container").html(data)
+                }, error: function(error) {
+                    Swal.fire({
+                        title: "Erro"
+                        , text: error.statusText
+                        , icon: "error"
+                        , confirmButtonText: "Ok"
+                    })
+                }
+            })
+        }
+        function chat(id = 0) {
+
+        }
+
+        $(document).ready(function() {
+            setInterval(() => {
+                loadInbox()
+            }, 3000)
+            loadProfile()
+            chat()
+        })
+    </script>
+</body>
+</html>
