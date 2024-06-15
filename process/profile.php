@@ -41,7 +41,7 @@
     }
 ?>
         <p class="name"><?= $username ?></p>
-        <p class="row">Online <? timing($user_online) ?></p>
+        <p class="row">Online <?= timing($user_online) ?></p>
         <p class="row">Membro desde <?= $user_creation ?></p>
 
 <script>

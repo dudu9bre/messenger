@@ -2,7 +2,7 @@
     require_once "connection/connect.php";
 
     function timing($time) {
-        $time = time() - $time;
+        $time = time() - 10800 - $time;
         $time = ($time < 1) ? 1 : $time;
         $tokens = [
             31536000 => "ano"
@@ -15,12 +15,14 @@
         ];
 
         foreach($tokens as $unit => $text) {
-            if ($time < $unit) continue;
+            if ($time < $unit) {
+                continue;
+            }
             $number_of_unities = floor($time / $unit);
-            if ($text == "segundo") {
+            if ($unit == 1 && $number_of_unities < 60) {
                 return "agora mesmo";
             }
-            return $number_of_unities . " " . $text . (($number_of_unities > 1) ? "s" : "");
+            return "há " . $number_of_unities . " " . $text . (($number_of_unities > 1) ? "s" : "");
         }
     }
 
