@@ -1,30 +1,6 @@
 <?php 
     require_once "./check.php";
 
-
-    function timing($time) {
-        $time = time() - $time;
-        $time = ($time < 1) ? 1 : $time;
-        $tokens = [
-            31536000 => "ano"
-            , 2592000 => "mês"
-            , 604800 => "semana"
-            , 86400 => "dia"
-            , 3600 => "hora"
-            , 60 => "minuto"
-            , 1 => "segundo"
-        ];
-
-        foreach($tokens as $unit => $text) {
-            if ($time < $unit) continue;
-            $number_of_unities = floor($time / $unit);
-            if ($text == "segundo") {
-                return "agora mesmo";
-            }
-            return $number_of_unities . " " . $text . (($number_of_unities > 1) ? "s" : "");
-        }
-    }
-
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
     } else {
@@ -33,6 +9,7 @@
 
     if ($id == 0) {
         $id = $uid;
+        $user_creation = date("d/m/Y", strtotime($user_creation));
 ?>
         <form method="post" enctype="multipart/form-data" id="upload_picture">
             <input type="file" name="img_inp" accept="image/x-png, image/jpeg" id="img_inp" hidden>
@@ -53,10 +30,9 @@
         } else {
             $username = $user['username'];
             $user_picture = $user['picture'];
-            $user_online = $user['online'];
+            $user_online = strtotime($user['online']);
             $user_creation = date("d/m/Y", strtotime($user['creation']));
         }
-
 ?>
         <div class="picture_container">
             <img id="user_img" src="profilepics/<?= $user_picture ?>">
@@ -67,3 +43,35 @@
         <p class="name"><?= $username ?></p>
         <p class="row">Online <? timing($user_online) ?></p>
         <p class="row">Membro desde <?= $user_creation ?></p>
+
+<script>
+    function previewUpload(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader()
+            reader.onload = function(e) {
+                $("#user_img").attr("src", e.target.result)
+                let formData = new FormData($("#upload_picture")[0])
+                $.ajax({
+                    type: "post"
+                    , url: "process/update_profile.php"
+                    , data: formData
+                    , cache: false
+                    , contentType: false
+                    , processData: false
+                    , error: function(error) {
+                        Swal.fire({
+                            title: "Imagem inválida"
+                            , text: error.statusText
+                            , icon: "error"
+                            , confirmButtonText: "Tentar novamente"
+                        })
+                    }
+                })
+            }
+            reader.readAsDataURL(input.files[0])
+        }
+    }
+    $("#img_inp").change(function() {
+        previewUpload(this)
+    })
+</script>

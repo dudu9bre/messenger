@@ -1,6 +1,6 @@
 <?php 
     $con = mysqli_connect("localhost", "root", "", "quicktalk");
-    mysqli_query($con, "SET time_zone='+00:00'");
+    mysqli_query($con, "SET time_zone='-03:00'");
 
     $con -> set_charset("utf8");
 

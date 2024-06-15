@@ -1,6 +1,29 @@
 <?php 
     require_once "connection/connect.php";
 
+    function timing($time) {
+        $time = time() - $time;
+        $time = ($time < 1) ? 1 : $time;
+        $tokens = [
+            31536000 => "ano"
+            , 2592000 => "mês"
+            , 604800 => "semana"
+            , 86400 => "dia"
+            , 3600 => "hora"
+            , 60 => "minuto"
+            , 1 => "segundo"
+        ];
+
+        foreach($tokens as $unit => $text) {
+            if ($time < $unit) continue;
+            $number_of_unities = floor($time / $unit);
+            if ($text == "segundo") {
+                return "agora mesmo";
+            }
+            return $number_of_unities . " " . $text . (($number_of_unities > 1) ? "s" : "");
+        }
+    }
+
     if (isset($_COOKIE['ID']) && isset($_COOKIE['TOKEN']) && isset($_COOKIE['SECURE'])) {
         $id = $_COOKIE['ID'];
         $token = $_COOKIE['TOKEN'];
