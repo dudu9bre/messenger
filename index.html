@@ -17,7 +17,7 @@
 
     <div id="inbox" class="column">
         <p class="title">Conversas</p>
-        <input type="text" maxlength="15" name="username" class="search_field" placeholder="Buscar">
+        <input type="text" maxlength="15" onkeyup="search()" name="username" class="search_field" placeholder="Buscar">
         <div id="search_container"></div>
         <div class="container"></div>
     </div>
@@ -33,7 +33,19 @@
     <script src="js/sweetalert2.js"></script>
     <script>
         function loadInbox() {
-
+            $.ajax({
+                url: "process/inbox.php"
+                , success: function(data) {
+                    $("#inbox .container").html(data)
+                }, error: function(error) {
+                    Swal.fire({
+                        title: "Erro"
+                        , text: error.statusText
+                        , icon: "error"
+                        , confirmButtonText: "Ok"
+                    })
+                }
+            })
         }
         function loadProfile(id = 0) {
             $.ajax({
@@ -53,6 +65,21 @@
         function chat(id = 0) {
 
         }
+        function search() {
+            let term = $("input.search_field").val()
+            
+            if (term.length >= 3) {
+                $.ajax({
+                    url: "process/search.php?term=" + term
+                    , success: function(data) {
+                        $("#search_container").html(data)
+                        $("#search_container").show()
+                    }
+                })
+            } else {
+                $("#search_container").hide()
+            }
+        }
 
         $(document).ready(function() {
             setInterval(() => {
@@ -61,6 +88,6 @@
             loadProfile()
             chat()
         })
-    </script>
+        </script>
 </body>
 </html>
