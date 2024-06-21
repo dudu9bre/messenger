@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.empty {
+    width: 49%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.top_menu {
+    width: 49%;
+    position: absolute;
+    top: 0;
+}
+
+.top_menu img {
+    float: right;
+    margin-top: 12px;
+    margin-right: 20px;
+    cursor: pointer;
+}

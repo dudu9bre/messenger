@@ -63,7 +63,20 @@
             })
         }
         function chat(id = 0) {
-
+            $.ajax({
+                url: "process/chat.php?id=" + id
+                , success: function(data) {
+                    $("#chat").html(data)
+                }
+                , error: function(error) {
+                    Swal.fire({
+                        title: "Erro"
+                        , text: error.statusText
+                        , icon: "error"
+                        , confirmButtonText: "Ok"
+                    })
+                }
+            })
         }
         function search() {
             let term = $("input.search_field").val()
