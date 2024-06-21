@@ -37,10 +37,26 @@
             $create_chat2 = $con -> prepare("INSERT INTO conversations (mainuser, otheruser, unread, creation) VALUES (?, ?, 'y', now())");
             $create_chat2 -> bind_param("ii", $user_id, $uid);
             $create_chat2 -> execute();
+
+            if (!$create_chat || !$create_chat2) {
+                die(header("HTTP/1.0 401 Erro"));
+            }
         } else {
             $update = $con ->  prepare("UPDATE conversations SET unread = 'y' WHERE (mainuser = ? AND otheruser = ?)");
             $update -> bind_param("ii", $user_id, $uid);
             $update -> execute();
+
+            if (!$update) {
+                die(header("HTTP/1.0 401 Erro"));
+            }
+        }
+
+        $stmt = $con -> prepare("INSERT INTO chat (`sender`, `receiver`, `message`, `image`, `creation`) VALUES (?, ?, ?, ?, now())");
+        $stmt -> bind_param("iiss", $uid, $user_id, $message, $image);
+        $stmt -> execute();
+
+        if (!$stmt) {
+            die(header("HTTP/1.0 401 Erro"));
         }
 
     } else {

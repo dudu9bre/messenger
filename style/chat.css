@@ -19,3 +19,39 @@
     margin-right: 20px;
     cursor: pointer;
 }
+
+.inner_container {
+    width: 100%;
+    height: 80vh;
+    margin: 10vh;
+    overflow-y: auto;
+}
+
+.inner_container .info {
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 10pt;
+}
+
+#send_message {
+    position: absolute;
+    bottom: 0;
+    width: 49%;
+    height: 50px;
+}
+
+#message_input {
+    width: 80%;
+    margin-left: 5%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #eee;
+}
+
+#send_message label {
+    float: right;
+    margin-top: 5px;
+    margin-right: 30px;
+    cursor: pointer;
+}

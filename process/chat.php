@@ -60,6 +60,24 @@
             $("#send_image").change(function() {
                 sendMessage()
             })
+
+            setInterval(() => {
+                $.ajax({
+                    url: "process/retrieve.php?id=<?= $user_id ?>"
+                    , success: function(data) {
+                        $(".inner_container").html(data)
+                        $(".inner_container").scrollTop($(".inner_container")).prop("scrollHeight")
+                    }
+                    , error: function(error) {
+                        Swal.fire({
+                            title: "Erro"
+                            , text: error.statusText
+                            , icon: "error"
+                            , confirmButtonText: "Ok"
+                        })
+                    }
+                })
+            }, 1500)
         </script>
 <?php 
     } else {
