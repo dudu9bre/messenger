@@ -6,13 +6,13 @@
         $message = $_POST['message'];
         $image = "";
 
-        if ($_FILES['image']['error'] <= 0 && $user_id != "") {
-            $image = $username . "_MESSAGE_" . rand(999, 999999) . $_FILES['img_inp']['name'];
-            $image_temp = $_FILES['img_imp']['tmp_name'];
+        if ($_FILES['image']['error'] <= 0) {
+            $image = $username . "_MESSAGE_" . rand(999, 999999) . $_FILES['image']['name'];
+            $image_temp = $_FILES['image']['tmp_name'];
             $image_path = "../uploads/";
 
             if (is_uploaded_file($image_temp)) {
-                if (move_uploaded_file($image_temp, $image_path, $image)) {
+                if (move_uploaded_file($image_temp, $image_path . $image)) {
                     echo "ok!";
                 } else {
                     die(header("HTTP/1.0 401 Erro ao carregar imagem ao banco de dados"));

@@ -20,8 +20,8 @@
         </form>
 <?php
     } else {
-        $stmt = $con -> prepare("SELECT id, username, picture, online, creation FROM user WHERE (id = ? AND token LIKE ? AND secure = ?)");
-        $stmt -> bind_param("isi", $id, $token, $secure);
+        $stmt = $con -> prepare("SELECT id, username, picture, online, creation FROM user WHERE (id = ?)");
+        $stmt -> bind_param("i", $id);
         $stmt -> execute();
         $user = $stmt -> get_result() -> fetch_assoc();
 

@@ -26,7 +26,7 @@
         <p class="title">Perfil</p>
         <div class="container"></div>
         <div class="menu">
-            <button>Sair</button>
+            <button onclick="logout()">Sair</button>
         </div>
     </div>
     <script src="js/jquery.js"></script>
@@ -67,6 +67,7 @@
                 url: "process/chat.php?id=" + id
                 , success: function(data) {
                     $("#chat").html(data)
+                    loadProfile(id)
                 }
                 , error: function(error) {
                     Swal.fire({
@@ -92,6 +93,18 @@
             } else {
                 $("#search_container").hide()
             }
+        }
+
+        function logout() {
+            $.ajax({
+                url: "process/logout.php"
+                , beforeSend: function() {
+                    $("#loading").show()
+                }
+                , success: function() {
+                    location.href = "auth.html"
+                }
+            })
         }
 
         $(document).ready(function() {

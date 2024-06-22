@@ -18,7 +18,7 @@
 
         <div class="inner_container"></div>
         <form method="post" enctype="multipart/form-data" id="send_message">
-            <input type="number" name="id" value="<?= $user_id ?>">
+            <input type="number" name="id" value="<?= $user_id ?>" hidden>
             <input type="text" name="message" maxlength="500" placeholder="Mensagem" id="message_input">
             <input type="file" name="image" accept="image/x-png, image/jpeg" id="send_image" hidden>
             <label for="send_image">
